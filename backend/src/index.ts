@@ -1,13 +1,15 @@
-import express, {type Express, type Request, type Response} from 'express';
+import express, {type Express} from 'express';
+
+import { PORT } from './config/server.config.js';
+import apiRouter from './routes/index.js';
 
 const app: Express = express(); // Created an instance of the express.
 
-app.get('/ping', (_req: Request, res: Response) => { // _req means that req is declared but not used and we want to remove that warning so we added _ in front of request.
-    return res.json({
-        message: "pong"
-    });
-});
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-app.listen(3000, () => {
-    console.log("Server Running at Port: 3000")
+app.use('/api', apiRouter);
+
+app.listen(PORT, () => {
+    console.log(`Server Running at Port: ${PORT}`);
 });

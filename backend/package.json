@@ -6,7 +6,7 @@
   "scripts": {
     "watch": "npx tsc -w",
     "build": "npx tsc",
-    "dev": "npx concurrently --kill-others \"npm run watch\" \"npx nodemon dist/index.js\""
+    "dev": "npx concurrently --kill-others \"npm run watch\" \"nodemon dist/index.js\""
   },
   "keywords": [],
   "author": "",
