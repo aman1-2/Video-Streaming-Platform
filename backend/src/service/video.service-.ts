@@ -57,7 +57,7 @@ export const processVideoForHls =  (
         .output(variantPlaylist)
         .on('end', () => {
             masterContent.push(
-                `EXT-X-STREAM-INF:BANDWIDTH=${resolution.bitRate*1000},RESOLUTION=${resolution.width}x${resolution.height}\n${resolution.height}p/playlist.m3u8`
+                `#EXT-X-STREAM-INF:BANDWIDTH=${resolution.bitRate*1000},RESOLUTION=${resolution.width}x${resolution.height}\n${resolution.height}p/playlist.m3u8`
             );
             countProcessing += 1;
             if(countProcessing == resolutions.length) {
