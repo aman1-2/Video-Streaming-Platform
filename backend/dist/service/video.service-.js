@@ -1,5 +1,6 @@
 import fs from 'fs';
 import ffmpeg from 'fluent-ffmpeg';
+import { createMovie, updateMovieStatus } from '../repository/movie.repository.js';
 const resolutions = [
     { width: 1920, height: 1080, bitRate: 2000 }, // 1080p
     { width: 1280, height: 720, bitRate: 1000 }, // 720p
@@ -18,11 +19,13 @@ const resolutions = [
 *                    and the master playlist string if the processing was successful.
 */
 export const processVideoForHls = (inputPath, outputPath, callBack) => {
+    createMovie(outputPath);
     fs.mkdirSync(outputPath, { recursive: true }); // Create the output directory
     const masterPlaylist = `${outputPath}/master.m3u8`; // Path to the master file
     const masterContent = [];
     let countProcessing = 0;
     resolutions.forEach((resolution) => {
+        console.log(`Processing video for resolution: ${resolution.width}x${resolution.height}`);
         const variantOutput = `${outputPath}/${resolution.height}p`;
         const variantPlaylist = `${variantOutput}/playlist.m3u8`; // Path to the variant playlist file
         fs.mkdirSync(variantOutput, { recursive: true }); // Create the variant directory
@@ -42,6 +45,8 @@ export const processVideoForHls = (inputPath, outputPath, callBack) => {
             if (countProcessing == resolutions.length) {
                 console.log("Processing Complete\nMaster Content:", masterContent);
                 fs.writeFileSync(masterPlaylist, `#EXTM3U\n${masterContent.join('\n')}`);
+                // Place where video processing ends we will make a call over here.
+                updateMovieStatus(outputPath, "COMPLETED");
                 callBack(null, masterPlaylist); // Call the callBack with the masterPlaylist path if it was success
             }
         })

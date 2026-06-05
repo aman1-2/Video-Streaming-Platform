@@ -11,7 +11,7 @@ export const uploadVideoController = async (req, res) => {
     }
     const videoPath = req.file.path;
     const outputPath = `output/${Date.now()}`;
-    processVideoForHls(videoPath, outputPath, (err, masterPlaylistPath) => {
+    processVideoForHls(videoPath, outputPath, (err, _) => {
         if (err) {
             res.status(500).json({
                 success: false,
@@ -25,16 +25,15 @@ export const uploadVideoController = async (req, res) => {
                 console.log("An error occured while deleting the video.", err);
             }
         });
-        res.status(200).json({
-            success: true,
-            message: "Video Proccess Successfully",
-            data: `/${masterPlaylistPath}`
-        });
+        // res.status(200).json({
+        //     success: true,
+        //     message: "Video Proccess Successfully",
+        //     data: `/${masterPlaylistPath}`
+        // });
     });
-    // res.status(200).json({
-    //     success: true,
-    //     message: "File Uploaded Successfully",
-    //     videoPath
-    // });
+    res.status(200).json({
+        success: true,
+        message: "Video Process Successfully",
+    });
 };
 //# sourceMappingURL=video.controller.js.map
