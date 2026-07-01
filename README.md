@@ -4,6 +4,9 @@ A video streaming platform inspired by modern OTT services like Netflix and YouT
 
 Instead of serving a single video file, uploaded videos are automatically processed into multiple resolutions, segmented into chunks, and streamed dynamically using HLS playlists.
 
+<img width="1677" height="938" alt="Image-1" src="https://github.com/user-attachments/assets/33539eef-443c-4c29-a626-8c511bb2a1a4" />
+
+
 ---
 
 # 🚀 Features
